@@ -4,4 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ImageRepository extends CrudRepository<Image, String> {
 
+    public Image findByFilename(String filename);
+
 }

@@ -52,4 +52,9 @@ public class ImageServiceImpl implements ImageService {
         return imageRepository.findAll();
     }
 
+    @Override
+    public Image getByFilename(String filename) {
+        return imageRepository.findByFilename(filename);
+    }
+
 }
