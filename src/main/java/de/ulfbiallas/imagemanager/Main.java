@@ -33,7 +33,7 @@ public class Main {
         servletContextHandler.addServlet(servletHolder, "/api/*");
         servletContextHandler.addEventListener(new ContextLoaderListener(applicationContext));
 
-        int port = 80;
+        int port = 8080;
         Server server = new Server(port);
         server.setHandler(servletContextHandler);
         server.start();

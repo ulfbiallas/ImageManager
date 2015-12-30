@@ -8,7 +8,17 @@ repositories {
 }
 
 dependencies {
+
+    // Server
     compile 'org.eclipse.jetty:jetty-server:9.3.0.RC1'
     compile 'org.eclipse.jetty:jetty-servlet:9.3.0.RC1'
+
+    // Spring
     compile 'org.springframework:spring-webmvc:4.2.0.RELEASE'
+
+    // ORM
+    compile 'org.springframework.data:spring-data-jpa:1.9.2.RELEASE'
+    compile 'org.hibernate:hibernate-entitymanager:4.3.5.Final'
+    compile 'org.hibernate:hibernate-c3p0:4.3.5.Final'
+    compile 'mysql:mysql-connector-java:5.1.21'
 }

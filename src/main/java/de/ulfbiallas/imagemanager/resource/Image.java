@@ -18,7 +18,7 @@ public class Image {
 
 
 
-    // curl -X POST "http://localhost/api/image/upload" -F "file=@test.png"
+    // curl -X POST "http://localhost:8080/api/image/upload" -F "file=@test.png"
     @ResponseBody
     @RequestMapping(value="/image/upload", method=RequestMethod.POST)
     public String uploadImage(@RequestParam("file") MultipartFile file) {
