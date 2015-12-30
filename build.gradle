@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.eclipse.jetty:jetty-server:9.3.0.RC1'
+    compile 'org.eclipse.jetty:jetty-servlet:9.3.0.RC1'
+    compile 'org.springframework:spring-webmvc:4.2.0.RELEASE'
+}
