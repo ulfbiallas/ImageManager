@@ -47,4 +47,9 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
+    @Override
+    public Iterable<Image> getAll() {
+        return imageRepository.findAll();
+    }
+
 }

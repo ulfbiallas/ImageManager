@@ -8,19 +8,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import de.ulfbiallas.imagemanager.repository.Image;
 import de.ulfbiallas.imagemanager.service.ImageService;
 
 @Controller
-public class Image {
+public class ImageResource {
 
     @Autowired
     private ImageService imageService;
 
 
 
-    // curl -X POST "http://localhost:8080/api/image/upload" -F "file=@test.png"
     @ResponseBody
-    @RequestMapping(value="/image/upload", method=RequestMethod.POST)
+    @RequestMapping(
+        value="/images",
+        method=RequestMethod.GET,
+        headers="Accept=application/json"
+    )
+    public Iterable<Image> getImages() {
+        return imageService.getAll();
+    }
+
+    // curl -X POST "http://localhost:8080/api/images/upload" -F "file=@test.png"
+    @ResponseBody
+    @RequestMapping(
+        value="/images/upload", 
+        method=RequestMethod.POST
+    )
     public String uploadImage(@RequestParam("file") MultipartFile file) {
         if (!file.isEmpty()) {
             try {
