@@ -22,6 +22,8 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public void saveFile(byte[] imageData, String originalFilename) throws IOException {
+        System.out.println("receiving file: " + originalFilename);
+
         String id = UUID.randomUUID().toString();
         String hash = imageHashService.hashImageData(imageData);
 
@@ -36,6 +38,7 @@ public class ImageServiceImpl implements ImageService {
         stream.close();
 
         imageRepository.save(image);
+        System.out.println("image saved.\n");
     }
 
     private String createFileName(String originalFilename, String id) {

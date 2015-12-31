@@ -8,7 +8,7 @@ public interface ImageService {
 
     public void saveFile(byte[] data, String name) throws IOException;
 
-    public Iterable<de.ulfbiallas.imagemanager.repository.Image> getAll();
+    public Iterable<Image> getAll();
 
     public Image getByFilename(String filename);
 
