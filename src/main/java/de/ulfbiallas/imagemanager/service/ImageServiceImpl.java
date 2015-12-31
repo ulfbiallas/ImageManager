@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import de.ulfbiallas.imagemanager.repository.Image;
 import de.ulfbiallas.imagemanager.repository.ImageRepository;
+import de.ulfbiallas.imagemanager.task.ImageResizeTask;
 
 @Component
 public class ImageServiceImpl implements ImageService {
@@ -19,6 +20,14 @@ public class ImageServiceImpl implements ImageService {
 
     @Autowired
     private ImageHashService imageHashService;
+
+    @Autowired
+    private ImageResizeService imageResizeService;
+
+    @Autowired
+    private TaskService taskService;
+
+
 
     @Override
     public void saveFile(byte[] imageData, String originalFilename) throws IOException {
@@ -32,12 +41,14 @@ public class ImageServiceImpl implements ImageService {
         image.setOriginalFilename(originalFilename);
         image.setHash(hash);
         image.setFilename(createFileName(originalFilename, id));
+        image.setFinished(false);
 
         BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream("uploads/"+image.getFilename()));
         stream.write(imageData);
         stream.close();
 
         imageRepository.save(image);
+        taskService.create(new ImageResizeTask(id, imageRepository, imageResizeService));
         System.out.println("image saved.\n");
     }
 

@@ -19,6 +19,9 @@ public class Image {
     @Column
     private String hash;
 
+    @Column
+    private Boolean finished;
+
     public Image() {
         
     }
@@ -53,6 +56,14 @@ public class Image {
 
     public void setHash(String hash) {
         this.hash = hash;
+    }
+
+    public Boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(Boolean finished) {
+        this.finished = finished;
     }
 
 }

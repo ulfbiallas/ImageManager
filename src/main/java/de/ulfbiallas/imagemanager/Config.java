@@ -31,7 +31,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 @EnableJpaRepositories
 @ComponentScan({
     "de.ulfbiallas.imagemanager.resource",
-    "de.ulfbiallas.imagemanager.service"
+    "de.ulfbiallas.imagemanager.service",
+    "de.ulfbiallas.imagemanager.task"
     })
 public class Config extends WebMvcConfigurerAdapter {
 
