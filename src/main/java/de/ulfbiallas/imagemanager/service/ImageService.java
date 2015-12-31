@@ -12,4 +12,6 @@ public interface ImageService {
 
     public Image getByFilename(String filename);
 
+    public Iterable<Image> searchFor(String query);
+
 }

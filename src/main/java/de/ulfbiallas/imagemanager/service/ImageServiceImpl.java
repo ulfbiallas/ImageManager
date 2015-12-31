@@ -60,4 +60,9 @@ public class ImageServiceImpl implements ImageService {
         return imageRepository.findByFilename(filename);
     }
 
+    @Override
+    public Iterable<Image> searchFor(String query) {
+        return imageRepository.searchFor(query);
+    }
+
 }

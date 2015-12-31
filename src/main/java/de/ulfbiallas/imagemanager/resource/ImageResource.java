@@ -44,6 +44,18 @@ public class ImageResource {
 
     @ResponseBody
     @RequestMapping(
+        value="/search/{query:.+}",
+        method=RequestMethod.GET,
+        headers="Accept=application/json"
+    )
+    public Iterable<Image> searchImages(@PathVariable String query) {
+        return imageService.searchFor(query);
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping(
         value="/images/{filename:.+}",
         method=RequestMethod.GET
     )
