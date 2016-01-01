@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.ulfbiallas.imagemanager.repository.Image;
+import de.ulfbiallas.imagemanager.entity.Image;
 import de.ulfbiallas.imagemanager.repository.ImageRepository;
 import de.ulfbiallas.imagemanager.task.ImageResizeTask;
 

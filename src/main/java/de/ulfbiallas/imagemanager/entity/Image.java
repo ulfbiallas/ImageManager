@@ -1,4 +1,4 @@
-package de.ulfbiallas.imagemanager.repository;
+package de.ulfbiallas.imagemanager.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

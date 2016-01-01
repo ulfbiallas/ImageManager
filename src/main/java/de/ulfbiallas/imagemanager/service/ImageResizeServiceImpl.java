@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 
 import org.springframework.stereotype.Component;
 
-import de.ulfbiallas.imagemanager.repository.Image;
+import de.ulfbiallas.imagemanager.entity.Image;
 
 @Component
 public class ImageResizeServiceImpl implements ImageResizeService {

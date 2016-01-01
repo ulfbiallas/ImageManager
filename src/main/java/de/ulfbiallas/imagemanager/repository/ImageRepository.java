@@ -3,6 +3,8 @@ package de.ulfbiallas.imagemanager.repository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import de.ulfbiallas.imagemanager.entity.Image;
+
 public interface ImageRepository extends CrudRepository<Image, String> {
 
     public Image findByFilename(String filename);

@@ -55,7 +55,7 @@ public class Config extends WebMvcConfigurerAdapter {
     public AbstractEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
-        factoryBean.setPackagesToScan("de.ulfbiallas.imagemanager.repository");
+        factoryBean.setPackagesToScan("de.ulfbiallas.imagemanager.entity");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         factoryBean.setJpaVendorAdapter(vendorAdapter);

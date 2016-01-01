@@ -2,7 +2,7 @@ package de.ulfbiallas.imagemanager.task;
 
 import java.util.concurrent.Callable;
 
-import de.ulfbiallas.imagemanager.repository.Image;
+import de.ulfbiallas.imagemanager.entity.Image;
 import de.ulfbiallas.imagemanager.repository.ImageRepository;
 import de.ulfbiallas.imagemanager.service.ImageResizeService;
 
