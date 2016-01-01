@@ -55,9 +55,9 @@ public class ImageServiceImpl implements ImageService {
     private String createFileName(String originalFilename, String id) {
         String[] components = originalFilename.split("\\.");
         if(components.length>1) {
-            return id+"."+components[components.length-1];
+            return id+"_original."+components[components.length-1];
         } else {
-            return id+".unknown";
+            return id+"_original.unknown";
         }
     }
 

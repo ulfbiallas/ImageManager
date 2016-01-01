@@ -26,6 +26,15 @@ public class ImageResizeServiceImpl implements ImageResizeService {
             BufferedImage imageThumbnail = scale(bufferedImage, 200);
             saveCopy(imageThumbnail, image, "thumbnail");
 
+            BufferedImage imageSmall = scale(bufferedImage, 640);
+            saveCopy(imageSmall, image, "small");
+
+            BufferedImage imageMedium = scale(bufferedImage, 800);
+            saveCopy(imageMedium, image, "medium");
+
+            BufferedImage imageLarge = scale(bufferedImage, 1024);
+            saveCopy(imageLarge, image, "large");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
