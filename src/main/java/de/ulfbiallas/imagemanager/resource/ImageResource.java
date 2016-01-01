@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import de.ulfbiallas.imagemanager.entity.Image;
+import de.ulfbiallas.imagemanager.body.ImageResponse;
 import de.ulfbiallas.imagemanager.service.ImageService;
 
 @Controller
@@ -36,7 +37,7 @@ public class ImageResource {
         method=RequestMethod.GET,
         headers="Accept=application/json"
     )
-    public Iterable<Image> getImages() {
+    public List<ImageResponse> getImages() {
         return imageService.getAll();
     }
 
@@ -48,7 +49,7 @@ public class ImageResource {
         method=RequestMethod.GET,
         headers="Accept=application/json"
     )
-    public Iterable<Image> searchImages(@PathVariable String query) {
+    public List<ImageResponse> searchImages(@PathVariable String query) {
         return imageService.searchFor(query);
     }
 
@@ -61,10 +62,12 @@ public class ImageResource {
     )
     public void getImage(@PathVariable String filename, HttpServletResponse response, HttpServletRequest request) {
 
-        Image image = imageService.getByFilename(filename);
+        //String[] filenameParts = filename.split("_");
+        //String id = filenameParts[0];
+        //Image image = imageService.getById(id);
 
         try {
-            InputStream inputStream = new FileInputStream(new File("uploads/"+image.getFilename()));
+            InputStream inputStream = new FileInputStream(new File("uploads/"+filename));
             OutputStream outputStream = response.getOutputStream();
             byte[] buffer = new byte[8192];
             int c = 0;
@@ -75,7 +78,7 @@ public class ImageResource {
             outputStream.close();
             inputStream.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            response.setStatus(404);
         } catch (IOException e) {
             e.printStackTrace();
         }

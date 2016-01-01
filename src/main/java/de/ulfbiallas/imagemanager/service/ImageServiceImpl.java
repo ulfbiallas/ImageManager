@@ -3,11 +3,16 @@ package de.ulfbiallas.imagemanager.service;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import de.ulfbiallas.imagemanager.body.ImageResponse;
 import de.ulfbiallas.imagemanager.entity.Image;
 import de.ulfbiallas.imagemanager.repository.ImageRepository;
 import de.ulfbiallas.imagemanager.task.ImageResizeTask;
@@ -62,18 +67,42 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Iterable<Image> getAll() {
-        return imageRepository.findAll();
+    public List<ImageResponse> getAll() {
+        return createResponseBodies(imageRepository.findAll());
     }
 
     @Override
-    public Image getByFilename(String filename) {
-        return imageRepository.findByFilename(filename);
+    public Image getById(String id) {
+        return imageRepository.findOne(id);
     }
 
     @Override
-    public Iterable<Image> searchFor(String query) {
-        return imageRepository.searchFor(query);
+    public List<ImageResponse> searchFor(String query) {
+        return createResponseBodies(imageRepository.searchFor(query));
+    }
+
+    private List<ImageResponse> createResponseBodies(Iterable<Image> images) {
+        String baseUrl = "http://localhost:8080/api/images/";
+        List<ImageResponse> imageResponses = new ArrayList<ImageResponse>();
+
+        for(Image image : images) {
+            Map<String, String> sizes = new HashMap<String, String>();
+            sizes.put("original", baseUrl+image.getFilename());
+            sizes.put("mini", baseUrl+image.getId()+"_mini.jpg");
+            sizes.put("thumbnail", baseUrl+image.getId()+"_thumbnail.jpg");
+            sizes.put("small", baseUrl+image.getId()+"_small.jpg");
+            sizes.put("medium", baseUrl+image.getId()+"_medium.jpg");
+            sizes.put("large", baseUrl+image.getId()+"_large.jpg");
+
+            ImageResponse imageResponse = new ImageResponse();
+            imageResponse.setId(image.getId());
+            imageResponse.setOriginalFilename(image.getOriginalFilename());
+            imageResponse.setSizes(sizes);
+
+            imageResponses.add(imageResponse);
+        }
+
+        return imageResponses;
     }
 
 }

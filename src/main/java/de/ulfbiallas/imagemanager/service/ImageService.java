@@ -1,17 +1,19 @@
 package de.ulfbiallas.imagemanager.service;
 
 import java.io.IOException;
+import java.util.List;
 
+import de.ulfbiallas.imagemanager.body.ImageResponse;
 import de.ulfbiallas.imagemanager.entity.Image;
 
 public interface ImageService {
 
     public void saveFile(byte[] data, String name) throws IOException;
 
-    public Iterable<Image> getAll();
+    public List<ImageResponse> getAll();
 
-    public Image getByFilename(String filename);
+    public Image getById(String filename);
 
-    public Iterable<Image> searchFor(String query);
+    public List<ImageResponse> searchFor(String query);
 
 }
