@@ -23,4 +23,9 @@ public class ImageMetaDataServiceImpl implements ImageMetaDataService {
         imageMetaDataRepository.save(imageMetaData);
     }
 
+    @Override
+    public ImageMetaData getById(String id) {
+        return imageMetaDataRepository.findOne(id);
+    }
+
 }

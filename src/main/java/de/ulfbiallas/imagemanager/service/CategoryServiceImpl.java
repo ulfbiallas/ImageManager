@@ -1,7 +1,7 @@
 package de.ulfbiallas.imagemanager.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getCategoriesByNames(List<String> names) {
-        List<Category> categories = new ArrayList<Category>();
+    public Set<Category> getCategoriesByNames(Set<String> names) {
+        Set<Category> categories = new HashSet<Category>();
         if(names != null) {
             for(String name : names) {
                 categories.add(getCategoryByName(name));

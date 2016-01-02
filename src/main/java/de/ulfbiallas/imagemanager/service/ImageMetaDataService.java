@@ -9,4 +9,6 @@ public interface ImageMetaDataService {
 
     public void updateMetaData(ImageMetaData imageMetaData);
 
+    public ImageMetaData getById(String id);
+
 }

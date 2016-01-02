@@ -1,7 +1,7 @@
 package de.ulfbiallas.imagemanager.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,8 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> getTagsByNames(List<String> names) {
-        List<Tag> tags = new ArrayList<Tag>();
+    public Set<Tag> getTagsByNames(Set<String> names) {
+        Set<Tag> tags = new HashSet<Tag>();
         if(names != null) {
             for(String name : names) {
                 tags.add(getTagByName(name));

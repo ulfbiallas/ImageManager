@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -111,8 +113,8 @@ public class ImageResource {
     )
     public String uploadImage(@RequestPart("file") MultipartFile file, @RequestPart("meta") ImageMetaDataRequest metaData) {
 
-        List<Tag> tags = tagService.getTagsByNames(metaData.getTags());
-        List<Category> categories = categoryService.getCategoriesByNames(metaData.getCategories());
+        Set<Tag> tags = tagService.getTagsByNames(new HashSet<String>(metaData.getTags()));
+        Set<Category> categories = categoryService.getCategoriesByNames(new HashSet<String>(metaData.getCategories()));
 
         if (!file.isEmpty()) {
             try {
