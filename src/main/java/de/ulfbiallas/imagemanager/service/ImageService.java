@@ -8,7 +8,7 @@ import de.ulfbiallas.imagemanager.entity.Image;
 
 public interface ImageService {
 
-    public void saveFile(byte[] data, String name) throws IOException;
+    public Image saveFile(byte[] data, String name) throws IOException;
 
     public List<ImageResponse> getAll();
 

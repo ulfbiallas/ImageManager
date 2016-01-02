@@ -16,12 +16,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import de.ulfbiallas.imagemanager.body.ImageMetaDataRequest;
 import de.ulfbiallas.imagemanager.body.ImageResponse;
+import de.ulfbiallas.imagemanager.entity.Category;
+import de.ulfbiallas.imagemanager.entity.Image;
+import de.ulfbiallas.imagemanager.entity.ImageMetaData;
+import de.ulfbiallas.imagemanager.entity.Tag;
+import de.ulfbiallas.imagemanager.service.CategoryService;
+import de.ulfbiallas.imagemanager.service.ImageMetaDataService;
 import de.ulfbiallas.imagemanager.service.ImageService;
+import de.ulfbiallas.imagemanager.service.TagService;
 
 @Controller
 public class ImageResource {
@@ -29,7 +37,14 @@ public class ImageResource {
     @Autowired
     private ImageService imageService;
 
+    @Autowired
+    private ImageMetaDataService imageMetaDataService;
+    
+    @Autowired
+    private CategoryService categoryService;
 
+    @Autowired
+    private TagService tagService;
 
     @ResponseBody
     @RequestMapping(
@@ -88,16 +103,25 @@ public class ImageResource {
 
 
 
-    // curl -X POST "http://localhost:8080/api/images/upload" -F "file=@test.png"
+    // curl -X POST "http://localhost:8080/api/images/upload" -F "file=@test.png" -F "meta={};type=application/json"
     @ResponseBody
     @RequestMapping(
         value="/images/upload", 
         method=RequestMethod.POST
     )
-    public String uploadImage(@RequestParam("file") MultipartFile file) {
+    public String uploadImage(@RequestPart("file") MultipartFile file, @RequestPart("meta") ImageMetaDataRequest metaData) {
+
+        List<Tag> tags = tagService.getTagsByNames(metaData.getTags());
+        List<Category> categories = categoryService.getCategoriesByNames(metaData.getCategories());
+
         if (!file.isEmpty()) {
             try {
-                imageService.saveFile(file.getBytes(), file.getOriginalFilename());
+                Image image = imageService.saveFile(file.getBytes(), file.getOriginalFilename());
+                ImageMetaData imageMetaData = imageMetaDataService.getByImage(image);
+                imageMetaData.setTags(tags);
+                imageMetaData.setCategories(categories);
+                imageMetaDataService.updateMetaData(imageMetaData);
+
                 return "Upload was successful!";
             } catch (Exception e) {
                 return "There was an error: " + e.getMessage();
