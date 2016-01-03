@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,7 @@ import de.ulfbiallas.imagemanager.entity.Category;
 import de.ulfbiallas.imagemanager.entity.Image;
 import de.ulfbiallas.imagemanager.entity.ImageMetaData;
 import de.ulfbiallas.imagemanager.entity.Tag;
+import de.ulfbiallas.imagemanager.service.AutoTagService;
 import de.ulfbiallas.imagemanager.service.CategoryService;
 import de.ulfbiallas.imagemanager.service.ImageMetaDataService;
 import de.ulfbiallas.imagemanager.service.ImageService;
@@ -47,6 +49,11 @@ public class ImageResource {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private AutoTagService autoTagService;
+
+
 
     @ResponseBody
     @RequestMapping(
@@ -113,8 +120,16 @@ public class ImageResource {
     )
     public String uploadImage(@RequestPart("file") MultipartFile file, @RequestPart("meta") ImageMetaDataRequest metaData) {
 
-        Set<Tag> tags = tagService.getTagsByNames(new HashSet<String>(metaData.getTags()));
-        Set<Category> categories = categoryService.getCategoriesByNames(new HashSet<String>(metaData.getCategories()));
+        List<String> metaDataTags = metaData.getTags() != null ? metaData.getTags() : new ArrayList<String>();
+        List<String> metaDataCategories = metaData.getCategories() != null ? metaData.getCategories() : new ArrayList<String>();
+
+        Set<Tag> tags = tagService.getTagsByNames(new HashSet<String>(metaDataTags));
+        Set<Category> categories = categoryService.getCategoriesByNames(new HashSet<String>(metaDataCategories));
+
+        Set<String> tokens = autoTagService.extractTokens(file.getOriginalFilename());
+        Set<String> tagNamesForTokens = autoTagService.getTagNamesForTokens(tokens);
+        Set<Tag> tagsForTokens = tagService.getTagsByNames(tagNamesForTokens);
+        tags.addAll(tagsForTokens);
 
         if (!file.isEmpty()) {
             try {
