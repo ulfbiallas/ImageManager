@@ -48,7 +48,7 @@ public class AutoTagServiceImpl implements AutoTagService {
         } catch (JsonParseException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
-            e.printStackTrace();
+            System.out.println("autotag.json malformed: auto-tagging disabled.");
         } catch (IOException e) {
             e.printStackTrace();
         }

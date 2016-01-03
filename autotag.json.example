@@ -1,0 +1,10 @@
+[
+  {
+    "tokens": ["newyork", "london", "paris", "berlin"],
+    "tags": ["city", "urban"]
+  },
+  {
+    "tokens": ["berlin"],
+    "tags": ["berlin", "city", "germany"]
+  }
+]
