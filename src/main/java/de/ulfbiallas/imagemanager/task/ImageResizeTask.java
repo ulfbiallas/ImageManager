@@ -1,10 +1,15 @@
 package de.ulfbiallas.imagemanager.task;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.ulfbiallas.imagemanager.entity.Image;
 import de.ulfbiallas.imagemanager.repository.ImageRepository;
 import de.ulfbiallas.imagemanager.service.ImageResizeService;
 
 public class ImageResizeTask implements ImageTask {
+
+    final static Logger logger = LoggerFactory.getLogger(ImageResizeTask.class);
 
     private final String imageId;
 
@@ -20,7 +25,7 @@ public class ImageResizeTask implements ImageTask {
 
     @Override
     public Void call() throws Exception {
-        System.out.println("process ImageResizeTask on " + getImageId());
+        logger.info("process ImageResizeTask on " + getImageId());
 
         Image image = imageRepository.findOne(imageId);
 

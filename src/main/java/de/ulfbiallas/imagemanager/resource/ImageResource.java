@@ -14,6 +14,8 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +39,8 @@ import de.ulfbiallas.imagemanager.service.TagService;
 
 @Controller
 public class ImageResource {
+
+    final static Logger logger = LoggerFactory.getLogger(ImageResource.class);
 
     @Autowired
     private ImageService imageService;
@@ -104,7 +108,7 @@ public class ImageResource {
         } catch (FileNotFoundException e) {
             response.setStatus(404);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
 
         response.setContentType("image/jpeg, image/jpg, image/png, image/gif");
@@ -141,6 +145,7 @@ public class ImageResource {
 
                 return "Upload was successful!";
             } catch (Exception e) {
+                logger.error(e.getMessage());
                 return "There was an error: " + e.getMessage();
             }
         } else {

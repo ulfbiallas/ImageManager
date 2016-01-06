@@ -13,6 +13,8 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -24,6 +26,8 @@ import de.ulfbiallas.imagemanager.body.AutoTagConfig;
 
 @Component
 public class AutoTagServiceImpl implements AutoTagService {
+
+    final static Logger logger = LoggerFactory.getLogger(AutoTagServiceImpl.class);
 
     private static final int MINIMUM_TAG_LENGTH = 2;
 
@@ -44,13 +48,13 @@ public class AutoTagServiceImpl implements AutoTagService {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("autotag.json not found: auto-tagging disabled.");
+            logger.warn("autotag.json not found: auto-tagging disabled.");
         } catch (JsonParseException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         } catch (JsonMappingException e) {
-            System.out.println("autotag.json malformed: auto-tagging disabled.");
+            logger.warn("autotag.json malformed: auto-tagging disabled.");
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         
     }

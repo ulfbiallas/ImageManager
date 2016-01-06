@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +24,8 @@ import de.ulfbiallas.imagemanager.task.IndexTask;
 
 @Component
 public class ImageServiceImpl implements ImageService {
+
+    final static Logger logger = LoggerFactory.getLogger(ImageServiceImpl.class);
 
     @Autowired
     private ImageRepository imageRepository;
@@ -45,7 +49,7 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public Image saveFile(byte[] imageData, String originalFilename) throws IOException {
-        System.out.println("receiving file: " + originalFilename);
+        logger.debug("receiving file: " + originalFilename);
 
         String id = UUID.randomUUID().toString();
         String hash = imageHashService.hashImageData(imageData);
@@ -66,7 +70,7 @@ public class ImageServiceImpl implements ImageService {
         taskService.create(new ImageResizeTask(id, imageRepository, imageResizeService));
         taskService.create(new IndexTask(id, imageMetaDataRepository, nodeClientService));
 
-        System.out.println("image saved.\n");
+        logger.debug("image saved.\n");
         return savedImage;
     }
 

@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.elasticsearch.client.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,6 +17,8 @@ import de.ulfbiallas.imagemanager.repository.ImageMetaDataRepository;
 import de.ulfbiallas.imagemanager.service.NodeClientService;
 
 public class IndexTask implements ImageTask {
+
+    final static Logger logger = LoggerFactory.getLogger(IndexTask.class);
 
     private ImageMetaDataRepository imageMetaDataRepository;
 
@@ -30,7 +34,7 @@ public class IndexTask implements ImageTask {
 
     @Override
     public Void call() throws Exception {
-        System.out.println("process IndexTask on " + getImageId());
+        logger.info("process IndexTask on " + getImageId());
 
         ImageMetaData imageMetaData = imageMetaDataRepository.findOne(imageId);
 

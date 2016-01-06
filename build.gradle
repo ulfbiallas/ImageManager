@@ -28,4 +28,7 @@ dependencies {
     // Search
     compile 'org.elasticsearch:elasticsearch:2.1.1'
 
+    // Logging
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+
 }

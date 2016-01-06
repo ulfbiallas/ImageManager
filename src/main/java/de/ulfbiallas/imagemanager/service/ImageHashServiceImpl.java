@@ -92,9 +92,6 @@ public class ImageHashServiceImpl implements ImageHashService {
         graphics.drawImage(scaledImage, 0, 0, null);
         graphics.dispose();
 
-//        File outputfile = new File("saved.png");
-//        ImageIO.write(scaledBufferedImage, "png", outputfile);
-
         DataBuffer scaledBufferedImageDataBuffer = scaledBufferedImage.getData().getDataBuffer();
         ByteBuffer scaledImageBytes = ByteBuffer.allocate(width * height * 4); // TYPE_INT_ARGB -> 4
         for(int k=0; k<scaledBufferedImageDataBuffer.getSize(); ++k) {

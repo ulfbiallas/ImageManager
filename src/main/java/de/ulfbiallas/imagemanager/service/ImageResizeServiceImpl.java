@@ -7,12 +7,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import de.ulfbiallas.imagemanager.entity.Image;
 
 @Component
 public class ImageResizeServiceImpl implements ImageResizeService {
+
+    final static Logger logger = LoggerFactory.getLogger(ImageResizeServiceImpl.class);
 
     @Override
     public void createCopiesWithDifferentSizes(Image image) {
@@ -36,7 +40,7 @@ public class ImageResizeServiceImpl implements ImageResizeService {
             saveCopy(imageLarge, image, "large");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
@@ -44,7 +48,7 @@ public class ImageResizeServiceImpl implements ImageResizeService {
         try {
             ImageIO.write(bufferedImage, "jpg", new File("uploads/"+image.getId()+"_"+sizeSuffix+".jpg"));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
