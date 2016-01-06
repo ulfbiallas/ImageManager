@@ -1,13 +1,13 @@
 package de.ulfbiallas.imagemanager.service;
 
-import de.ulfbiallas.imagemanager.task.ImageResizeTask;
+import de.ulfbiallas.imagemanager.task.ImageTask;
 
 public interface TaskService {
 
     int getNumberOfTasks();
 
-    void create(ImageResizeTask task);
+    void create(ImageTask task);
 
-    ImageResizeTask getNextTask();
+    ImageTask getNextTask();
 
 }

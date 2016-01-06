@@ -20,7 +20,7 @@ public class Worker extends Thread {
     public void run() {
         while(true) {
 
-            ImageResizeTask task = taskService.getNextTask();
+            ImageTask task = taskService.getNextTask();
             if(task != null) {
                 System.out.println("execute task: " + task.getImageId());
                 try {

@@ -5,12 +5,12 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.springframework.stereotype.Component;
 
-import de.ulfbiallas.imagemanager.task.ImageResizeTask;
+import de.ulfbiallas.imagemanager.task.ImageTask;
 
 @Component
 public class TaskServiceImpl implements TaskService {
 
-    private AbstractQueue<ImageResizeTask> tasks = new LinkedBlockingQueue<ImageResizeTask>();
+    private AbstractQueue<ImageTask> tasks = new LinkedBlockingQueue<ImageTask>();
 
     @Override
     public int getNumberOfTasks() {
@@ -18,12 +18,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void create(ImageResizeTask task) {
+    public void create(ImageTask task) {
         tasks.add(task);
     }
 
     @Override
-    public ImageResizeTask getNextTask() {
+    public ImageTask getNextTask() {
         return tasks.poll();
     }
 

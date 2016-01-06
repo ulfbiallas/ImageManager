@@ -25,4 +25,7 @@ dependencies {
     // Jackson
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.4'
 
+    // Search
+    compile 'org.elasticsearch:elasticsearch:2.1.1'
+
 }

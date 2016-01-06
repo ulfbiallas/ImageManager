@@ -18,6 +18,7 @@ import de.ulfbiallas.imagemanager.entity.ImageMetaData;
 import de.ulfbiallas.imagemanager.repository.ImageMetaDataRepository;
 import de.ulfbiallas.imagemanager.repository.ImageRepository;
 import de.ulfbiallas.imagemanager.task.ImageResizeTask;
+import de.ulfbiallas.imagemanager.task.IndexTask;
 
 @Component
 public class ImageServiceImpl implements ImageService {
@@ -33,6 +34,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Autowired
     private ImageMetaDataRepository imageMetaDataRepository;
+
+    @Autowired
+    private NodeClientService nodeClientService;
 
     @Autowired
     private TaskService taskService;
@@ -58,9 +62,11 @@ public class ImageServiceImpl implements ImageService {
         stream.close();
 
         ImageMetaData savedImage = imageMetaDataRepository.save(image);
-        taskService.create(new ImageResizeTask(id, imageRepository, imageResizeService));
-        System.out.println("image saved.\n");
 
+        taskService.create(new ImageResizeTask(id, imageRepository, imageResizeService));
+        taskService.create(new IndexTask(id, imageMetaDataRepository, nodeClientService));
+
+        System.out.println("image saved.\n");
         return savedImage;
     }
 

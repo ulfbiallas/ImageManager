@@ -1,12 +1,10 @@
 package de.ulfbiallas.imagemanager.task;
 
-import java.util.concurrent.Callable;
-
 import de.ulfbiallas.imagemanager.entity.Image;
 import de.ulfbiallas.imagemanager.repository.ImageRepository;
 import de.ulfbiallas.imagemanager.service.ImageResizeService;
 
-public class ImageResizeTask implements Callable<Void> {
+public class ImageResizeTask implements ImageTask {
 
     private final String imageId;
 
@@ -22,7 +20,7 @@ public class ImageResizeTask implements Callable<Void> {
 
     @Override
     public Void call() throws Exception {
-//        Thread.sleep(3000);
+        System.out.println("process ImageResizeTask on " + getImageId());
 
         Image image = imageRepository.findOne(imageId);
 
