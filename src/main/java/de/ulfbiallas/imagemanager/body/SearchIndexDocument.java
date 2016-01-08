@@ -1,4 +1,4 @@
-package de.ulfbiallas.imagemanager.entity;
+package de.ulfbiallas.imagemanager.body;
 
 import java.util.List;
 
