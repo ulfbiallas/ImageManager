@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.ulfbiallas.imagemanager.body.SearchIndexDocument;
 import de.ulfbiallas.imagemanager.entity.ImageMetaData;
-import de.ulfbiallas.imagemanager.entity.SearchIndexDocument;
 import de.ulfbiallas.imagemanager.entity.Tag;
 import de.ulfbiallas.imagemanager.repository.ImageMetaDataRepository;
 import de.ulfbiallas.imagemanager.service.NodeClientService;

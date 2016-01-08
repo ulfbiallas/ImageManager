@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import de.ulfbiallas.imagemanager.body.ImageMetaDataRequest;
 import de.ulfbiallas.imagemanager.body.ImageResponse;
+import de.ulfbiallas.imagemanager.body.SearchIndexDocument;
 import de.ulfbiallas.imagemanager.entity.Category;
 import de.ulfbiallas.imagemanager.entity.Image;
 import de.ulfbiallas.imagemanager.entity.ImageMetaData;
@@ -35,6 +36,7 @@ import de.ulfbiallas.imagemanager.service.AutoTagService;
 import de.ulfbiallas.imagemanager.service.CategoryService;
 import de.ulfbiallas.imagemanager.service.ImageMetaDataService;
 import de.ulfbiallas.imagemanager.service.ImageService;
+import de.ulfbiallas.imagemanager.service.SearchService;
 import de.ulfbiallas.imagemanager.service.TagService;
 
 @Controller
@@ -57,6 +59,9 @@ public class ImageResource {
     @Autowired
     private AutoTagService autoTagService;
 
+    @Autowired
+    private SearchService searchService;
+
 
 
     @ResponseBody
@@ -73,11 +78,23 @@ public class ImageResource {
 
     @ResponseBody
     @RequestMapping(
-        value="/search/{query:.+}",
+        value="/images/search/{query:.+}",
         method=RequestMethod.GET,
         headers="Accept=application/json"
     )
-    public List<ImageResponse> searchImages(@PathVariable String query) {
+    public List<SearchIndexDocument> searchImages(@PathVariable String query) {
+        return searchService.searchFor(query);
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping(
+        value="/images/oldsearch/{query:.+}",
+        method=RequestMethod.GET,
+        headers="Accept=application/json"
+    )
+    public List<ImageResponse> searchImagesOld(@PathVariable String query) {
         return imageService.searchFor(query);
     }
 
