@@ -3,15 +3,12 @@ package de.ulfbiallas.imagemanager.service;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +25,6 @@ import de.ulfbiallas.imagemanager.body.AutoTagConfig;
 public class AutoTagServiceImpl implements AutoTagService {
 
     final static Logger logger = LoggerFactory.getLogger(AutoTagServiceImpl.class);
-
-    private static final int MINIMUM_TAG_LENGTH = 2;
 
     private Map<String, Set<String>> tokenTagMapping;
 
@@ -57,18 +52,6 @@ public class AutoTagServiceImpl implements AutoTagService {
             logger.error(e.getMessage());
         }
         
-    }
-
-    @Override
-    public Set<String> extractTokens(String string) {
-        String[] tokens = string.split("-| |_|,|;|\\.");
-        List<String> tokenList = new ArrayList<String>(Arrays.asList(tokens));
-        tokenList = tokenList.stream(). //
-                map(x -> x.trim()). //
-                filter(x -> x.length() >= MINIMUM_TAG_LENGTH). //
-                map(x -> x.toLowerCase()). //
-                collect(Collectors.toList());
-        return new HashSet<String>(tokenList);
     }
 
     @Override

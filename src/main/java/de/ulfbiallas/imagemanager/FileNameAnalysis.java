@@ -7,22 +7,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import de.ulfbiallas.imagemanager.service.AutoTagService;
-import de.ulfbiallas.imagemanager.service.AutoTagServiceImpl;
+import de.ulfbiallas.imagemanager.service.TokenizationService;
+import de.ulfbiallas.imagemanager.service.TokenizationServiceImpl;
 
 public class FileNameAnalysis {
 
     public static void main(String[] args) {
-        String foldername = args[0]; // "C:\\Users\\UB\\Desktop\\pics";
+        String foldername = args[0];
         File folder = new File(foldername);
 
-        AutoTagService autoTagService = new AutoTagServiceImpl();
+        TokenizationService tokenizationService = new TokenizationServiceImpl();
 
         Map<String, Integer> tags = new HashMap<String, Integer>();
         for(File file : folder.listFiles()) {
-            //System.out.println(file.getName());
-            Set<String> tokens = autoTagService.extractTokens(file.getName());
-            //System.out.println(autoTagService.getTagNamesForTokens(tokens));
+            Set<String> tokens = tokenizationService.tokenize(file.getName());
             for(String token : tokens) {
                 if(tags.containsKey(token)) {
                     tags.put(token, tags.get(token)+1);

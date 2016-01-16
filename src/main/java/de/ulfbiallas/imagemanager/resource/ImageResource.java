@@ -38,6 +38,7 @@ import de.ulfbiallas.imagemanager.service.ImageMetaDataService;
 import de.ulfbiallas.imagemanager.service.ImageService;
 import de.ulfbiallas.imagemanager.service.SearchService;
 import de.ulfbiallas.imagemanager.service.TagService;
+import de.ulfbiallas.imagemanager.service.TokenizationService;
 
 @Controller
 public class ImageResource {
@@ -55,6 +56,9 @@ public class ImageResource {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private TokenizationService tokenizationService;
 
     @Autowired
     private AutoTagService autoTagService;
@@ -147,7 +151,7 @@ public class ImageResource {
         Set<Tag> tags = tagService.getTagsByNames(new HashSet<String>(metaDataTags));
         Set<Category> categories = categoryService.getCategoriesByNames(new HashSet<String>(metaDataCategories));
 
-        Set<String> tokens = autoTagService.extractTokens(file.getOriginalFilename());
+        Set<String> tokens = tokenizationService.tokenize(file.getOriginalFilename());
         Set<String> tagNamesForTokens = autoTagService.getTagNamesForTokens(tokens);
         Set<Tag> tagsForTokens = tagService.getTagsByNames(tagNamesForTokens);
         tags.addAll(tagsForTokens);
